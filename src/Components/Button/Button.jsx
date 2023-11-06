@@ -1,10 +1,15 @@
 import React from "react";
-const Button = ({ text, type }) => {
+
+const Button = ({ onClick, label }) => {
   return (
-    // <button
-    //   className={`${type === "quick-apply" ? "quick-apply" : "external-apply"}`}
-    // >
-    <button className="bg-red">apply</button>
+    <div>
+      <button
+        onClick={onClick}
+        className=" w-[118px] h-[40px] bg-[#1597E4] text-center shadow text-white rounded-md "
+      >
+        {label}
+      </button>
+    </div>
   );
 };
 
