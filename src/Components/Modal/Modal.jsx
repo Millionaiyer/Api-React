@@ -1,18 +1,14 @@
 // Modal.js
 
 import React from "react";
+import Form1 from "./Form/Form1";
+// import Form2 from "./Form/Form2";
 
 const Modal = ({ isModalOpen, isModalClose }) => {
-  if (!isModalOpen) {
-    return null;
-  }
-
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <h1>hello world</h1>
-        <button onClick={isModalClose}>Close</button>
-      </div>
+    <div>
+      <Form1 isModalOpen={isModalOpen} isModalClose={isModalClose} />
+      {/* <Form2 isModalOpen={isModalOpen} isModalClose={isModalClose} /> */}
     </div>
   );
 };

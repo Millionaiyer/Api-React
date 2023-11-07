@@ -15,16 +15,6 @@ const Card = ({ data }) => {
     totalEmployee,
   } = data;
 
-  const [showModal, setShowModal] = useState(false);
-
-  const openModal = () => {
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
-
   return (
     <>
       <div className="flex gap-1  border-2 rounded-md border-[#DADEDF] bg-white py-[24px] px-[16px] w-[40%]  grow-1 shrink">
@@ -51,8 +41,7 @@ const Card = ({ data }) => {
               <span>{totalEmployee} employees</span>
             </div>
             <div className="flex gap-2">
-              <Button onClick={openModal} label="Apply Now" />
-              <Modal isModalOpen={showModal} isModalClose={closeModal} />
+              <Button label="Apply Now" />
             </div>
           </div>
         </div>
