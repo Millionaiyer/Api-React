@@ -17,7 +17,7 @@ const Card = ({ data }) => {
 
   return (
     <>
-      <div className="flex gap-1  border-2 rounded-md border-[#DADEDF] bg-white py-[24px] px-[16px] w-[40%]  grow-1 shrink">
+      <div className="flex gap-1  border-2 rounded-md border-[#DADEDF] bg-white py-[24px] px-[16px] w-[40%]  grow-1 shrink ">
         <div className="flex gap-2">
           <img
             src={logo}
