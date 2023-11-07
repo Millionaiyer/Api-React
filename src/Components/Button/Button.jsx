@@ -1,6 +1,9 @@
 import React from "react";
 
 const Button = ({ onClick, label, type }) => {
+
+  
+
   return (
     <div>
       <button
