@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Card from "./Components/Card/Card";
 import Button from "./Components/Button/Button";
-import Modal from "./Components/Modal/Modal";
+// import Modal from "./Components/Modal/Modal";
 import Form1 from "./Components/Modal/Form/Form1";
 import Form2 from "./Components/Modal/Form/Form2";
 
@@ -26,26 +26,70 @@ function App() {
       console.error("Error fetching data:", error);
     }
   };
-
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState({ form1: false, form2: false });
 
   const openModal = () => {
-    setShowModal(true);
+    setShowModal({ ...showModal, form1: true, form2: false });
   };
 
   const closeModal = () => {
-    setShowModal(false);
+    setShowModal({ ...showModal, form1: false, form2: false });
+  };
+
+  const openModal2 = () => {
+    setShowModal({ ...showModal, form1: false, form2: true });
+  };
+
+  const prevModal = () => {
+    setShowModal({ ...showModal, form1: true, form2: false });
+  };
+
+  const [getValues, setGetValues] = useState({
+    title: "",
+    companyName: "",
+    location: "",
+    industry: "",
+    minimumSalary: "",
+    maximumSalary: "",
+    minimumExperience: "",
+    maximumExperience: "",
+    applyType: "",
+    totalEmployee: "",
+  });
+
+  const getValueseHandler = (e) => {
+    console.log(e.target.name, e.target.value);
+    setGetValues((prevGetValues) => ({
+      ...prevGetValues,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   return (
     <>
       {/* <Modal /> */}
-      <Form1 isModalOpen={showModal} isModalClose={closeModal} />
-      <Form2 />
-      <Button onClick={openModal} label="Apply Now" />
+      <Form1
+        isModalOpen={showModal.form1}
+        isModalClose={closeModal}
+        openModal2={openModal2}
+        getValues={getValues}
+        getValueseHandler={getValueseHandler}
+      />
+      <Form2
+        isModalOpen={showModal.form2}
+        prevModal={prevModal}
+        getValues={getValues}
+        getValueseHandler={getValueseHandler}
+      />
+      <div className="flex justify-evenly">
+        <Button onClick={openModal} label="Apply Now" />
+        <Button label="Delete Button" />
+      </div>
       <div
         className={` ${
-          showModal ? "flex opacity-20 fixed overflow-hidden " : ""
+          showModal.form2 || showModal.form1
+            ? "flex opacity-20 fixed overflow-hidden "
+            : ""
         } flex-wrap bg-[#D8D8D8] flex gap-12 justify-center align-center py-4`}
       >
         {jobs.map((job, index) => {
