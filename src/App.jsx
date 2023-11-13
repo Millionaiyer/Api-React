@@ -104,6 +104,12 @@ function App() {
     );
   };
 
+  const isValid = () => {
+    return  parseInt(getValues.minimumExperience) < parseInt(getValues.maximumExperience) &&
+            parseInt(getValues.minimumSalary) < parseInt(getValues.maximumSalary) 
+
+  } 
+
   return (
     <>
       {/* <Modal /> */}
@@ -121,7 +127,7 @@ function App() {
         getValues={getValues}
         getValueseHandler={getValueseHandler}
         closeModal={closeModal}
-        disabled={disableBtnForm2()}
+        disabled={disableBtnForm2() || !isValid()  }
       />
       <div className="flex justify-evenly">
         <Button onClick={openModal} label="Apply Now" />
