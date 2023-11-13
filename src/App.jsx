@@ -73,14 +73,36 @@ function App() {
   });
 
   const getValueseHandler = (e) => {
-    console.log(e.target.name, e.target.value);
+    // console.log(e.target.name, e.target.value);
     setGetValues((prevGetValues) => ({
       ...prevGetValues,
       [e.target.name]: e.target.value,
     }));
+    console.log(getValues.maximumExperience, "bigExp");
+    console.log(getValues.minimumExperience, "smallExp");
   };
 
   // validation
+  const disableBtnForm1 = () => {
+    return (
+      getValues.title.length < 1 ||
+      getValues.companyName.length < 1 ||
+      getValues.industry.length < 1 ||
+      getValues.location.length < 1 ||
+      getValues.remoteType.length < 1
+    );
+  };
+
+  const disableBtnForm2 = () => {
+    return (
+      getValues.minimumExperience.length < 1 ||
+      getValues.maximumExperience.length < 1 ||
+      getValues.minimumSalary.length < 1 ||
+      getValues.maximumSalary.length < 1 ||
+      getValues.totalEmployee.length < 1 ||
+      getValues.applyType.length < 1
+    );
+  };
 
   return (
     <>
@@ -91,13 +113,7 @@ function App() {
         openModal2={openModal2}
         getValues={getValues}
         getValueseHandler={getValueseHandler}
-        disabled={
-          getValues.title.length < 1 ||
-          getValues.companyName.length < 1 ||
-          getValues.industry.length < 1 ||
-          getValues.location.length < 1 ||
-          getValues.remoteType.length < 1
-        }
+        disabled={disableBtnForm1()}
       />
       <Form2
         isModalOpen={showModal.form2}
@@ -105,13 +121,7 @@ function App() {
         getValues={getValues}
         getValueseHandler={getValueseHandler}
         closeModal={closeModal}
-        disabled={
-          getValues.minimumExperience.length < 1 ||
-          getValues.maximumExperience.length < 1 ||
-          getValues.minimumSalary.length < 1 ||
-          getValues.maximumSalary.length < 1 ||
-          getValues.totalEmployee.length < 1
-        }
+        disabled={disableBtnForm2()}
       />
       <div className="flex justify-evenly">
         <Button onClick={openModal} label="Apply Now" />
