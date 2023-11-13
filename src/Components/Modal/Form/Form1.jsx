@@ -9,6 +9,7 @@ const Form1 = ({
   openModal2,
   getValues,
   getValueseHandler,
+  disabled,
 }) => {
   if (!isModalOpen) {
     return null;
@@ -73,15 +74,20 @@ const Form1 = ({
                 type="text"
                 className="w-full"
                 placeholder="ex. In-office "
-                value={getValues.applyType}
+                value={getValues.remoteType}
                 onChange={getValueseHandler}
-                name="applyType"
+                name="remoteType"
               />
             </div>
           </div>
           <div className="flex justify-evenly">
             <Button onClick={isModalClose} label="Close" />
-            <Button type="submit" label="Next" onClick={openModal2} />
+            <Button
+              type="submit"
+              label="Next"
+              onClick={openModal2}
+              disabled={disabled}
+            />
           </div>
         </div>
       </form>

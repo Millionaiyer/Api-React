@@ -3,13 +3,21 @@ import Input from "../Input/Input";
 import Label from "../Label/Label";
 import Button from "../../Button/Button";
 
-const Form2 = ({ isModalOpen, prevModal, getValues, getValueseHandler }) => {
+const Form2 = ({
+  isModalOpen,
+  prevModal,
+  getValues,
+  getValueseHandler,
+  closeModal,
+  disabled,
+}) => {
   if (!isModalOpen) {
     return false;
   }
 
+  console.log(disabled);
   return (
-    <div className="flex justify-center align-center py-10 h-[1024px]  fixed top-0 right-0 z-10  w-full ">
+    <div className="flex justify-center align-center py-10 h-[1024px]  fixed top-0 right-0 z-10  w-full mt-5 ">
       <form className="flex  w-[560px] bg-white h-[500px] flex-col p-[32px] rounded">
         <div className="flex flex-col gap-6">
           <div className="flex justify-between">
@@ -72,6 +80,7 @@ const Form2 = ({ isModalOpen, prevModal, getValues, getValueseHandler }) => {
               className="w-[489px]"
               placeholder="ex. 100"
               value={getValues.totalEmployee}
+              name="totalEmployee"
               onChange={getValueseHandler}
             />
           </div>
@@ -85,9 +94,11 @@ const Form2 = ({ isModalOpen, prevModal, getValues, getValueseHandler }) => {
               <div className=" flex gap-1">
                 <Input
                   type="radio"
-                  value={getValues.applyType}
+                  value="Quick Apply"
                   onChange={getValueseHandler}
                   className="w-[20px]"
+                  name="applyType"
+                  checked={getValues.applyType === "Quick Apply"}
                 />
                 <div>
                   <Label text="Quick Apply" />
@@ -96,9 +107,11 @@ const Form2 = ({ isModalOpen, prevModal, getValues, getValueseHandler }) => {
               <div className="flex gap-1">
                 <Input
                   type="radio"
-                  Value={getValues.applyType}
+                  value="External Apply"
                   onChange={getValueseHandler}
                   className="w-[20px]"
+                  name="applyType"
+                  checked={getValues.applyType === "External Apply"}
                 />
                 <div>
                   <Label text="External Apply" />
@@ -111,7 +124,11 @@ const Form2 = ({ isModalOpen, prevModal, getValues, getValueseHandler }) => {
             <Button
               type="submit"
               label="Submit"
-              onClick={() => console.log(getValues)}
+              onClick={() => {
+                disabled = { disabled };
+                console.log(getValues);
+                closeModal();
+              }}
             />
           </div>
         </div>

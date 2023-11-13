@@ -8,6 +8,7 @@ const Card = ({ data }) => {
     companyName,
     location,
     industry,
+    remoteType,
     minimumSalary,
     maximumSalary,
     minimumExperience,
@@ -33,7 +34,7 @@ const Card = ({ data }) => {
               <span>{industry}</span>
             </div>
             <div className="flex flex-col">
-              <span>{applyType} (9.00 am - 5.00 pm IST)</span>
+              <span>{remoteType} (9.00 am - 5.00 pm IST)</span>
               <span>
                 Experience ({minimumExperience} - {maximumExperience} years)
               </span>
