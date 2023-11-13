@@ -124,8 +124,8 @@ const Form2 = ({
             <Button
               type="submit"
               label="Submit"
+              disabled={disabled}
               onClick={() => {
-                disabled = { disabled };
                 console.log(getValues);
                 closeModal();
               }}
