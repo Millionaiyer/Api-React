@@ -78,30 +78,32 @@ function App() {
       ...prevGetValues,
       [e.target.name]: e.target.value,
     }));
-    
+
     setGetValues((prevGetValues) => ({
       ...prevGetValues,
       [e.target.name]: e.target.value,
     }));
-    
+
     // check if string
-    if (typeof e.target.value === 'string' ) {
-      const isAlphabetic = /^[a-zA-Z]*$/.test(e.target.value);
-  
-      setGetValues((prevGetValues) => ({
-        ...prevGetValues,
-        [e.target.name]: isAlphabetic ? e.target.value : '',
-      }));
+    if (e.target.type === "text") {
+      if (/^[a-zA-Z]*$/.test(e.target.value)) {
+        setGetValues((prevGetValues) => ({
+          ...prevGetValues,
+          [e.target.name]: e.target.value,
+        }));
+      } else {
+        alert("Cannot input numbers. Please enter alphabets only.");
+      }
     }
-   
+
     // Check if the input is a number
-    if (!isNaN(parseFloat(e.target.value)) && isFinite(e.target.value)) {
+    if (e.target.type === "number") {
       setGetValues((prevGetValues) => ({
         ...prevGetValues,
-        [e.target.name]: parseFloat(e.target.value),
+        [e.target.name]: parseInt(e.target.value),
       }));
     }
-    if (e.target.type === 'radio') {
+    if (e.target.type === "radio") {
       // Handle radio button input
       setGetValues((prevGetValues) => ({
         ...prevGetValues,
@@ -110,30 +112,19 @@ function App() {
     }
   };
 
+  // if{typeof e.target.value === 'number' || e.target.value instanceof number) {
+  //   const numericValue = /[^a-zA-Z]/g.test(e.target.value)
+  // if (!isNaN(numericValue)) {
 
-  
-  
-  
-  
-  
-  
+  // Using this code write if input type =text e.target.value
 
-    // if{typeof e.target.value === 'number' || e.target.value instanceof number) {
-    //   const numericValue = /[^a-zA-Z]/g.test(e.target.value)
-    // if (!isNaN(numericValue)) {
-    
-    
-// Using this code write if input type =text e.target.value
+  // /^[a-zA-Z]*$/.test(inputValue)
 
-// /^[a-zA-Z]*$/.test(inputValue)
-    
-    console.log(getValues.maximumExperience, "bigExp");
-    console.log(getValues.minimumExperience, "smallExp");
-  
+  console.log(getValues.maximumExperience, "bigExp");
+  console.log(getValues.minimumExperience, "smallExp");
 
   // validation
   const disableBtnForm1 = () => {
-    
     return (
       getValues.title.length < 1 ||
       getValues.companyName.length < 1 ||
@@ -154,14 +145,38 @@ function App() {
     );
   };
 
-  
+  let alertDisplayed = false;
+
   const isValid = () => {
-    return  parseInt(getValues.minimumExperience) < parseInt(getValues.maximumExperience) &&
-            parseInt(getValues.minimumSalary) < parseInt(getValues.maximumSalary) 
+    const minimumExperience = parseInt(getValues.minimumExperience);
+    const maximumExperience = parseInt(getValues.maximumExperience);
+    const minimumSalary = parseInt(getValues.minimumSalary);
+    const maximumSalary = parseInt(getValues.maximumSalary);
 
-  } 
-
-
+    if (
+      minimumExperience < maximumExperience &&
+      minimumSalary < maximumSalary
+    ) {
+      // Reset the alert flag if conditions are met
+      alertDisplayed = false;
+      return true;
+    } else {
+      if (!alertDisplayed) {
+        if (minimumExperience >= maximumExperience) {
+          alert(
+            "Please ensure that minimum experience is less than maximum experience."
+          );
+        }
+        if (minimumSalary >= maximumSalary) {
+          alert(
+            "Please ensure that minimum salary is less than maximum salary."
+          );
+        }
+        alertDisplayed = true; // Set the flag to true after displaying the alert
+      }
+      return false;
+    }
+  };
 
   return (
     <>
@@ -180,7 +195,7 @@ function App() {
         getValues={getValues}
         getValueseHandler={getValueseHandler}
         closeModal={closeModal}
-        disabled={disableBtnForm2() || !isValid()  }
+        disabled={disableBtnForm2() || !isValid()}
       />
       <div className="flex justify-evenly">
         <Button onClick={openModal} label="Apply Now" />

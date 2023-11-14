@@ -90,13 +90,13 @@ const Form2 = ({
             <div>
               <Label text="Apply Type" />
             </div>
-            <div className="flex gap-4">
+            <div className="flex gap-4 align-baseline justify-start">
               <div className=" flex gap-1">
                 <Input
                   type="radio"
                   value="Quick Apply"
                   onChange={getValueseHandler}
-                  className="w-[20px]"
+                  className="w-[12px]"
                   name="applyType"
                   checked={getValues.applyType === "Quick Apply"}
                 />
@@ -109,7 +109,7 @@ const Form2 = ({
                   type="radio"
                   value="External Apply"
                   onChange={getValueseHandler}
-                  className="w-[20px]"
+                  className="w-[12px]"
                   name="applyType"
                   checked={getValues.applyType === "External Apply"}
                 />
