@@ -2,6 +2,7 @@ import React from "react";
 import Input from "../Input/Input";
 import Label from "../Label/Label";
 import Button from "../../Button/Button";
+import { useState } from "react";
 
 const Form2 = ({
   isModalOpen,
@@ -11,14 +12,64 @@ const Form2 = ({
   closeModal,
   disabled,
 }) => {
+
+  const [loading, setLoading] = useState(false);
+
   if (!isModalOpen) {
     return false;
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(getValues,'form subbmitted')
+
+    // Perform validation before making the API call
+    if (disabled) {
+      // Display an error message or handle invalid form state
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      // Your API endpoint URL
+      const apiUrl = "https://6530d94e6c756603295f269f.mockapi.io/jobs";
+
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(getValues),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      // Reset the form state or perform any other actions upon successful API call
+      console.log("Job created successfully!");
+      closeModal();
+    } catch (error) {
+      console.error("Error creating job:", error);
+      // Handle error scenarios (e.g., display an error message to the user)
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+
+
+ 
+
   console.log(disabled);
   return (
     <div className="flex justify-center align-center py-10 h-[1024px]  fixed top-0 right-0 z-10  w-full mt-5 ">
-      <form className="flex  w-[560px] bg-white h-[500px] flex-col p-[32px] rounded">
+       <form
+        className="flex w-[560px] bg-white h-[500px] flex-col p-[32px] rounded"
+        onSubmit={handleSubmit}
+      >
         <div className="flex flex-col gap-6">
           <div className="flex justify-between">
             <h1>Create A Job </h1>
@@ -120,17 +171,13 @@ const Form2 = ({
             </div>
           </div>
           <div className="flex justify-evenly">
-            <Button onClick={prevModal} label="Go Back" />
-            <Button
-              type="submit"
-              label="Submit"
-              disabled={disabled}
-              onClick={() => {
-                console.log(getValues);
-                closeModal();
-              }}
-            />
-          </div>
+          <Button onClick={prevModal} label="Go Back" />
+          <Button
+            type="submit"
+            label={loading ? "Submitting..." : "Submit"}
+            disabled={disabled || loading}
+          />
+        </div>
         </div>
       </form>
     </div>
