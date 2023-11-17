@@ -12,63 +12,28 @@ const Form2 = ({
   closeModal,
   disabled,
 }) => {
-
-  const [loading, setLoading] = useState(false);
-
   if (!isModalOpen) {
     return false;
   }
 
-  const handleSubmit = async (e) => {
+  const postRequest = (e) => {
     e.preventDefault();
-    console.log(getValues,'form subbmitted')
-
-    // Perform validation before making the API call
-    if (disabled) {
-      // Display an error message or handle invalid form state
-      return;
-    }
-
-    try {
-      setLoading(true);
-
-      // Your API endpoint URL
-      const apiUrl = "https://6530d94e6c756603295f269f.mockapi.io/jobs";
-
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(getValues),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      // Reset the form state or perform any other actions upon successful API call
-      console.log("Job created successfully!");
-      closeModal();
-    } catch (error) {
-      console.error("Error creating job:", error);
-      // Handle error scenarios (e.g., display an error message to the user)
-    } finally {
-      setLoading(false);
-    }
+    // try {
+    //   fetch("https://6530d94e6c756603295f269f.mockapi.io/jobs", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(getValues),
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
-
-
-
- 
-
-  console.log(disabled);
   return (
     <div className="flex justify-center align-center py-10 h-[1024px]  fixed top-0 right-0 z-10  w-full mt-5 ">
-       <form
+      <form
         className="flex w-[560px] bg-white h-[500px] flex-col p-[32px] rounded"
-        onSubmit={handleSubmit}
+        onSubmit={postRequest}
       >
         <div className="flex flex-col gap-6">
           <div className="flex justify-between">
@@ -147,7 +112,7 @@ const Form2 = ({
                   type="radio"
                   value="Quick Apply"
                   onChange={getValueseHandler}
-                  className="w-[12px]"
+                  className="w-[10px]"
                   name="applyType"
                   checked={getValues.applyType === "Quick Apply"}
                 />
@@ -160,7 +125,7 @@ const Form2 = ({
                   type="radio"
                   value="External Apply"
                   onChange={getValueseHandler}
-                  className="w-[12px]"
+                  className="w-[10px]"
                   name="applyType"
                   checked={getValues.applyType === "External Apply"}
                 />
@@ -171,13 +136,14 @@ const Form2 = ({
             </div>
           </div>
           <div className="flex justify-evenly">
-          <Button onClick={prevModal} label="Go Back" />
-          <Button
-            type="submit"
-            label={loading ? "Submitting..." : "Submit"}
-            disabled={disabled || loading}
-          />
-        </div>
+            <Button onClick={prevModal} label="Go Back" />
+            <Button
+              disabled={disabled}
+              type={"submit"}
+              // onClick={postRequest}
+              label="Submit"
+            />
+          </div>
         </div>
       </form>
     </div>

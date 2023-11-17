@@ -32,6 +32,7 @@ function App() {
   const openModal = () => {
     setShowModal({ ...showModal, form1: true, form2: false });
   };
+  console.log("modal close", showModal);
 
   const closeModal = () => {
     setShowModal({ ...showModal, form1: false, form2: false });
@@ -85,16 +86,14 @@ function App() {
     }));
 
     // check if string
-    if (e.target.type === "text") {
-      if (/^[a-zA-Z]*$/.test(e.target.value)) {
-        setGetValues((prevGetValues) => ({
-          ...prevGetValues,
-          [e.target.name]: e.target.value,
-        }));
-      } else {
-        alert("Cannot input numbers. Please enter alphabets only.");
-      }
-    }
+    // if (e.target.type === "text") {
+    //   if (/^[a-zA-Z]*$/.test(e.target.value)) {
+    //     setGetValues((prevGetValues) => ({
+    //       ...prevGetValues,
+    //       [e.target.name]: e.target.value,
+    //     }));
+    //   }
+    // }
 
     // Check if the input is a number
     if (e.target.type === "number") {
@@ -119,9 +118,6 @@ function App() {
   // Using this code write if input type =text e.target.value
 
   // /^[a-zA-Z]*$/.test(inputValue)
-
-  console.log(getValues.maximumExperience, "bigExp");
-  console.log(getValues.minimumExperience, "smallExp");
 
   // validation
   const disableBtnForm1 = () => {

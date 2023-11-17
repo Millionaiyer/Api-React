@@ -2,6 +2,7 @@ import React from "react";
 import Input from "../Input/Input";
 import Label from "../Label/Label";
 import Button from "../../Button/Button";
+import { useState, useEffect } from "react";
 
 const Form1 = ({
   isModalOpen,
@@ -10,10 +11,25 @@ const Form1 = ({
   getValues,
   getValueseHandler,
   disabled,
+  error,
 }) => {
   if (!isModalOpen) {
     return null;
   }
+
+  const [err, setErr] = useState({
+    errTitle: false,
+    errName: false,
+  });
+
+  const submitHandler = () => {
+    console.log(getValues.title, typeof getValues.title);
+    if (getValues.title === "a") {
+      setErr({ ...err, errTitle: true });
+    } else {
+      // openModal2();
+    }
+  };
 
   return (
     <div className="flex justify-center align-center py-10 h-[1024px]  fixed top-0 right-0 z-10  w-full mt-5 ">
@@ -32,6 +48,8 @@ const Form1 = ({
               value={getValues.title}
               onChange={getValueseHandler}
               name="title"
+              err={"please input value"}
+              errStatus={err?.errTitle}
             />
           </div>
           <div className="flex flex-col justify-start ">
@@ -85,7 +103,7 @@ const Form1 = ({
             <Button
               type="submit"
               label="Next"
-              onClick={openModal2}
+              onClick={submitHandler}
               disabled={disabled}
             />
           </div>
